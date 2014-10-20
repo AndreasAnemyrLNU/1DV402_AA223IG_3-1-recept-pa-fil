@@ -127,5 +127,21 @@ namespace FiledRecipes.Domain
                 handler(this, e);
             }
         }
+
+        /// <summary>
+        /// AA 141020
+        /// </summary>
+        public void Load()
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// AA 141020
+        /// </summary>
+        public void Save()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
