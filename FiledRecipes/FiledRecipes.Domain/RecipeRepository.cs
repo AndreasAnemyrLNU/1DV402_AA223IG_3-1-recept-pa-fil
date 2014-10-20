@@ -133,7 +133,55 @@ namespace FiledRecipes.Domain
         /// </summary>
         public void Load()
         {
-            throw new NotImplementedException();
+            //Påbörjar att försöka först hur loaden ska fungera
+            //Metod ska returnea en list med objekt
+
+            List<Recipe> recipes = new List<Recipe>();
+
+
+            try
+            {
+                using (StreamReader reader = new StreamReader(_path))
+                {
+                    string line;
+                    while((line = reader.ReadLine()) != null)
+                    {
+                        //Dela upp sträng!
+                        //med ett resultat i varje sträng
+                        string[] values = line.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (string value in values) 
+                        {
+
+
+                            Console.WriteLine(value);
+                        }
+
+                        List<IIngredient> ingred = new List<IIngredient>(30);
+
+                        Ingredient ingredRow = new Ingredient();
+
+                        //ingredRow.Measure = "Measure";
+                        //ingredRow.Amount = "Amount";
+                        //ingredRow.Name = "Name";
+                        
+                        
+                        ingred.Add(ingredRow);
+
+                        List<string> instru = new List<string>();
+                        instru.Add("Instruktioner");
+
+
+                        Recipe test = new Recipe("Tes",ingred,instru);
+                        _recipes.Add(test);
+                 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);  
+            }
         }
 
         /// <summary>
