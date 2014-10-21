@@ -136,26 +136,78 @@ namespace FiledRecipes.Domain
             //Påbörjar att försöka först hur loaden ska fungera
             //Metod ska returnea en list med objekt
 
+            RecipeReadStatus recipeReadStatus = new RecipeReadStatus();
+            
             List<Recipe> recipes = new List<Recipe>();
 
 
-            try
-            {
+            Recipe currentRecipe;
+
                 using (StreamReader reader = new StreamReader(_path))
                 {
                     string line;
                     while((line = reader.ReadLine()) != null)
+                    
+       
+                    //3 B
+                    switch(line)
                     {
-                        //Dela upp sträng!
-                        //med ett resultat i varje sträng
-                        string[] values = line.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                        case "":
+                            continue;
+                        //3 B
+                        case SectionRecipe:
+                            recipeReadStatus = RecipeReadStatus.New;
+                            continue;
+                        //3 C
+                        case SectionIngredients:
+                            recipeReadStatus = RecipeReadStatus.Ingredient;
+                            continue;
+                        //3 D
+                        case SectionInstructions:
+                            recipeReadStatus = RecipeReadStatus.Ingredient;
+                            continue;
+                        //3 E
+                        default:
+                            switch (recipeReadStatus) 
+                            { 
+                                // 3 E i
+                                case RecipeReadStatus.New:
+                                    currentRecipe = new Recipe(line);
+                                    recipes.Add(currentRecipe);
+                                    break;
+                                // 3 E ii
+                                case RecipeReadStatus.Ingredient:
+                                    // 1
+                                string[] values = line.Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                                    // 2
+                                if (values.Length != 3)
+                                {
+                                    throw new FileFormatException();
+                                }
+                                    // 3
+                                new Ingredient()
 
-                        foreach (string value in values) 
-                        {
+                                
+                                
+                                
+                                foreach (string value in values) 
+                                {
+                                    Console.WriteLine(value);
+                                }
 
+                                // 3
+                                // 4
+                                    break;
+                                // 3 E iii
+                                case RecipeReadStatus.Instruction:
+                                    break;
+                                // 3 E iV
+                                default:
+                                    throw new FileFormatException();
+                            }
+                            break;
+                    }
 
-                            Console.WriteLine(value);
-                        }
 
                         List<IIngredient> ingred = new List<IIngredient>(30);
 
@@ -176,12 +228,6 @@ namespace FiledRecipes.Domain
                         _recipes.Add(test);
                  
                     }
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);  
-            }
         }
 
         /// <summary>
