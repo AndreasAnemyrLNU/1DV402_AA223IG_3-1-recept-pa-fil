@@ -21,7 +21,32 @@ namespace FiledRecipes.Views
             Console.Clear();
             Header = recipe.Name;
             ShowHeaderPanel();
-            
+            Console.WriteLine();
+            Console.WriteLine("Ingredienser");
+            Console.WriteLine("============");
+            foreach (Ingredient ingredient in recipe.Ingredients)
+            {
+                Console.WriteLine(ingredient);
+            }
+            Console.WriteLine();
+            Console.WriteLine("Görs så här");
+            Console.WriteLine("===========");
+
+
+
+            recipe.Instructions
+            int i = 1;           
+            foreach (string instruction in recipe.Instructions)
+            {          
+                Console.WriteLine(string.Format("({0})", i));
+                if (instruction == "")
+                {
+
+                    Console.WriteLine(instruction);
+                    i++;
+                }
+
+            }
 
 
         }
