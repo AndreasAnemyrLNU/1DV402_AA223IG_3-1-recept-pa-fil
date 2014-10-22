@@ -18,7 +18,12 @@ namespace FiledRecipes.Views
         /// <param name="recipe"></param>
         public void Show(IRecipe recipe)
         {
-            throw new NotImplementedException();
+            Console.Clear();
+            Header = recipe.Name;
+            ShowHeaderPanel();
+            
+
+
         }
         /// <summary>
         /// AA 141020 impl

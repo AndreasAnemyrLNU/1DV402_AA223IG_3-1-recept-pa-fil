@@ -180,7 +180,7 @@ namespace FiledRecipes.Domain
                         case RecipeReadStatus.Ingredient:
                             //1 
                             // Array splitting. Simulerar värden först!
-                            string[] values = new string[3]{"3","dl","Mjölk"};
+                            string[] values = line.Split(';');
                             //2
                             if (values.Length != 3)
                             {
