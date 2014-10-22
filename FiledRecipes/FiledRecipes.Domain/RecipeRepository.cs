@@ -137,25 +137,26 @@ namespace FiledRecipes.Domain
             //Metod ska returnea en list med objekt
 
             RecipeReadStatus recipeReadStatus = new RecipeReadStatus();
-
             string line;
-            
+            Recipe currentRecipe = null;
             
             //1
             List<IRecipe> recipes = new List<IRecipe>();
+            
+            
             //2
             using (StreamReader reader = new StreamReader(_path))
             {
                 //3
                     //a
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null) //WHILE "READING FILE" START
                 {
-                    switch (line)
+                    switch (line) //SWITCH "SECTION" START
                     {
                     //b
                         case SectionRecipe:
-                            recipeReadStatus = RecipeReadStatus.Ingredient;
-                            continue;
+                            recipeReadStatus = RecipeReadStatus.New;
+                            continue;;
                     //c
                         case SectionIngredients:
                             recipeReadStatus = RecipeReadStatus.Ingredient;
@@ -164,15 +165,17 @@ namespace FiledRecipes.Domain
                         case SectionInstructions:
                             recipeReadStatus = RecipeReadStatus.Instruction;
                             continue;
-                    }
+                    }// SWITCH "SECTION" END
+                    
                     //e
-                    switch (recipeReadStatus)
+                    switch (recipeReadStatus) //SWITCH "RECIPEREADSTATUS" START
                     {
                         //i
                         case RecipeReadStatus.New:
                             // 1
-                            Recipe currentRecipeObj = new Recipe(line);
-                            continue;
+                            currentRecipe = new Recipe(line);
+                            recipes.Add(currentRecipe);
+                            break;
                         //ii
                         case RecipeReadStatus.Ingredient:
                             //1 
@@ -189,18 +192,34 @@ namespace FiledRecipes.Domain
                             ingredientObj.Measure = values[1];
                             ingredientObj.Name = values[2];
                             //4
-                            
+                            currentRecipe.Add(ingredientObj);
+                            break;
+                        //iii
+                        case RecipeReadStatus.Instruction:
+                            currentRecipe.Add(line);
+                            break;
+                        //vi
+                        default:
+                            throw new FileFormatException();
+                    } //SWITCH "RECIPEREADSTATUS" END             
 
-                            continue;
-                    }
-
-                    
-                    
-                    
-                    
-                } // WHILE END
+                } //WHILE "READING FILE" END
 
             }// USING END
+
+            // 4 Sortera listan
+            recipes.Sort();
+            
+            // 5 Tilldela recipes -> _recipes
+            _recipes = recipes;
+
+            // 6
+            IsModified = false;
+ 
+            // 7
+            OnRecipesChanged(EventArgs.Empty);
+            
+
         }// LOAD METHOD END
 
        
