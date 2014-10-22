@@ -32,20 +32,14 @@ namespace FiledRecipes.Views
             Console.WriteLine("Görs så här");
             Console.WriteLine("===========");
 
-
-
-            recipe.Instructions
             int i = 1;           
             foreach (string instruction in recipe.Instructions)
             {          
-                Console.WriteLine(string.Format("({0})", i));
-                if (instruction == "")
+                if (instruction != "")
                 {
-
+                    Console.WriteLine(string.Format("({0})", i++));
                     Console.WriteLine(instruction);
-                    i++;
                 }
-
             }
 
 
