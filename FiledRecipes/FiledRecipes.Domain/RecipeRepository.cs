@@ -148,11 +148,13 @@ namespace FiledRecipes.Domain
             using (StreamReader reader = new StreamReader(_path))
             {
                 //3
-                    //a
                 while ((line = reader.ReadLine()) != null) //WHILE "READING FILE" START
                 {
                     switch (line) //SWITCH "SECTION" START
                     {
+                    //a
+                        case "":
+                            continue;
                     //b
                         case SectionRecipe:
                             recipeReadStatus = RecipeReadStatus.New;
@@ -256,6 +258,8 @@ namespace FiledRecipes.Domain
                     }
                 }
             }
+            IsModified = false;
+            OnRecipesChanged(EventArgs.Empty);
         }
 
     }
