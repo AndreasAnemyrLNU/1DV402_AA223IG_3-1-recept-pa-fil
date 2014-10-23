@@ -110,7 +110,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Recipes.txt" />
-    <Content Include="App_Data\Recipes_ORIGINAL - Copy.txt" />
     <Content Include="App_Data\Recipes_ORIGINAL.txt" />
   </ItemGroup>
   <ItemGroup>
