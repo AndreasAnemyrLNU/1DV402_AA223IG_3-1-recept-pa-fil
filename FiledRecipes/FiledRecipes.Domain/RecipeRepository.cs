@@ -233,7 +233,27 @@ namespace FiledRecipes.Domain
         /// </summary>
         public void Save()
         {
-            throw new NotImplementedException();
+
+            using (StreamWriter writer = new StreamWriter(_path))
+            {
+                foreach (Recipe recipe in _recipes)
+                {
+                    // [Recept]
+                    writer.WriteLine(SectionRecipe);
+                    writer.WriteLine(recipe.Name);
+                    // [Ingredient]
+                    writer.WriteLine(SectionIngredients);
+                    foreach (Ingredient ingredient in recipe.Ingredients)
+                    {
+                        writer.WriteLine(string.Format("{0}{1}{2}",
+                            ingredient.Amount, ingredient.Measure, ingredient.Name));
+                    }
+                    // [Instruction]
+                    writer.WriteLine(SectionInstructions);
+                    writer.WriteLine(recipe.Instructions);
+                }
+            }
         }
+
     }
 }
