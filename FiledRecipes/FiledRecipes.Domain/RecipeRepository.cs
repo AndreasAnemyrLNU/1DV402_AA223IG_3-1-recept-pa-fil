@@ -179,12 +179,17 @@ namespace FiledRecipes.Domain
                         //ii
                         case RecipeReadStatus.Ingredient:
                             //1 
-                            // Array splitting. Simulerar värden först!
+                            // Split line of ingredient separated by semicolon...
                             string[] values = line.Split(';');
                             //2
                             if (values.Length != 3)
                             {
                                 throw new FileFormatException();
+                            }
+                            // Throws an Exception in ingrediient has no Name in field...
+                            if (values[2] == "")
+                            {
+                                throw new Exception("Namn på ingrediens är obligatorisk!");
                             }
                             //3
                             Ingredient ingredientObj = new Ingredient();
@@ -207,7 +212,7 @@ namespace FiledRecipes.Domain
 
             }// USING END
 
-            // 4 Sortera listan
+            // 4 Sort list. CompareTo reciept can sort by recipe.Name, CompareTo(Recipe other)
             recipes.Sort();
             
             // 5 Tilldela recipes -> _recipes

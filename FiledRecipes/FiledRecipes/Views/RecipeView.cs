@@ -41,8 +41,6 @@ namespace FiledRecipes.Views
                     Console.WriteLine(instruction);
                 }
             }
-
-
         }
         /// <summary>
         /// AA 141020 impl
@@ -50,7 +48,12 @@ namespace FiledRecipes.Views
         /// <param name="recipes"></param>
         public void Show(IEnumerable<IRecipe> recipes)
         {
-            throw new NotImplementedException();
+
+            foreach (Recipe recipe in recipes)
+            {
+                Show(recipe);             
+                ContinueOnKeyPressed();
+            }
         }
     }
 }
