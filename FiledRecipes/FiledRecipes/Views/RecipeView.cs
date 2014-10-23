@@ -13,7 +13,7 @@ namespace FiledRecipes.Views
     public class RecipeView : ViewBase, IRecipeView
     {
         /// <summary>
-        /// AA 141020 impl
+        /// AA 141020 impl - Shows recipe from index
         /// </summary>
         /// <param name="recipe"></param>
         public void Show(IRecipe recipe)
@@ -43,12 +43,11 @@ namespace FiledRecipes.Views
             }
         }
         /// <summary>
-        /// AA 141020 impl
+        /// AA 141020 impl - Look through all recipes by click any key for next...
         /// </summary>
         /// <param name="recipes"></param>
         public void Show(IEnumerable<IRecipe> recipes)
         {
-
             foreach (Recipe recipe in recipes)
             {
                 Show(recipe);             

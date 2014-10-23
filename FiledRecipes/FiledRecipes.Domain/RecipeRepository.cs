@@ -129,13 +129,10 @@ namespace FiledRecipes.Domain
         }
 
         /// <summary>
-        /// AA 141020
+        /// AA 141020 - Loads recipes from App-Data/Recipes.txt
         /// </summary>
         public void Load()
         {
-            //Påbörjar att försöka först hur loaden ska fungera
-            //Metod ska returnea en list med objekt
-
             RecipeReadStatus recipeReadStatus = new RecipeReadStatus();
             string line;
             Recipe currentRecipe = null;
@@ -231,7 +228,7 @@ namespace FiledRecipes.Domain
 
        
         /// <summary>
-        /// AA 141020
+        /// AA 141020 - Overwrites modified list of recipes in file App-Data/Recipes.txt
         /// </summary>
         public void Save()
         {
